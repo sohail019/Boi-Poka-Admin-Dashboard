@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom"; // Import BrowserRou
 import store from "./store"; // Your redux store
 import AppRouter from "@/routes/index"; // Import the AppRouter component
 
-import "./App.css"; // Import any global styles
+//import "./App.css"; // Import any global styles
 
 // App Component
 function App() {
