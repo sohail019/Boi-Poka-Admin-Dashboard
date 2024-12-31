@@ -53,7 +53,6 @@ const AdminLoginForm = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -92,17 +91,13 @@ const AdminLoginForm = () => {
                 <Button type="submit" className="w-full">
                   Login
                 </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button>
               </div>
               <div className="mt-4 text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
+                <a href="admin-register" className="underline underline-offset-4">
+                  Register
                 </a>
               </div>
-            </form>
           </CardContent>
         </Card>
       </div>
