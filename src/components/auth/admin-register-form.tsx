@@ -1,85 +1,129 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import axiosInstance from '@/utils/axios-instance';
-import { isAxiosError } from 'axios';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { registerSchema, RegisterFormData } from '@/schemas/auth/admin-schema';
-
+import React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axiosInstance from "@/utils/axios-instance";
+import { isAxiosError } from "axios";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { registerSchema, RegisterFormData } from "@/schemas/auth/admin-schema";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import PasswordWithValidation from "../shared/password-validation";
 const AdminRegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
 
   const onSubmit = async (data: RegisterFormData) => {
+    console.log(errors.password);
     try {
-      const response = await axiosInstance.post('/admin/register', data);
+      const response = await axiosInstance.post("/admin/register", data);
       alert(response.data.message);
     } catch (error: unknown) {
       if (isAxiosError(error)) {
-        alert(error.response?.data?.error || 'Registration failed');
+        alert(error.response?.data?.error || "Registration failed");
       } else {
-        alert('Registration failed');
+        alert("Registration failed");
       }
     }
   };
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 max-w-md mx-auto"
-      >
-        <div>
-          <Label htmlFor="fullName">Full Name</Label>
-          <Input id="fullName" type="text" {...register("fullName")} />
-          {errors.fullName && (
-            <p className="text-red-500 text-sm">{errors.fullName.message}</p>
-          )}
-        </div>
+      <div className="space-y-4 w-1/4">
+        <div className="flex flex-col gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">Register</CardTitle>
+              <CardDescription>
+                Enter your details to create a new account
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="flex flex-col gap-6">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="admin@boipoka.com"
+                      {...register("email")}
+                      required
+                    />
+                    {errors.email && (
+                      <p className="text-red-500">{errors.email.message}</p>
+                    )}
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="fullName">Full Name</Label>
+                    <Input
+                      id="fullName"
+                      type="text"
+                      placeholder="Admin "
+                      {...register("fullName")}
+                      required
+                    />
+                    {errors.fullName && (
+                      <p className="text-red-500">{errors.fullName.message}</p>
+                    )}
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="mobileNumber">Mobile Number</Label>
+                    <Input
+                      id="mobileNumber"
+                      type="text"
+                      placeholder="+91 123456789"
+                      {...register("mobileNumber")}
+                      required
+                    />
+                    {errors.mobileNumber && (
+                      <p className="text-red-500">
+                        {errors.mobileNumber.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="password">Password</Label>
 
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" {...register("email")} />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
-          )}
+                    <PasswordWithValidation
+                      value={watch("password") || ""}
+                      onChange={(e) => setValue("password", e.target.value)}
+                    />
+                    {errors.password && (
+                      <p className="text-red-500">{errors.password.message}</p>
+                    )}
+                  </div>
+                  <Button type="submit" className="w-full">
+                    Register
+                  </Button>
+                </div>
+                <div className="mt-4 text-center text-sm">
+                  Don&apos;t have an account?{" "}
+                  <a
+                    href="/admin-login"
+                    className="underline underline-offset-4"
+                  >
+                    Login
+                  </a>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         </div>
-
-        <div>
-          <Label htmlFor="mobileNumber">Mobile Number</Label>
-          <Input id="mobileNumber" type="text" {...register("mobileNumber")} />
-          {errors.mobileNumber && (
-            <p className="text-red-500 text-sm">
-              {errors.mobileNumber.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" {...register("password")} />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label htmlFor="accessTo">Access To</Label>
-          <Input id="accessTo" type="text" {...register("accessTo")} />
-          {errors.accessTo && (
-            <p className="text-red-500 text-sm">{errors.accessTo.message}</p>
-          )}
-        </div>
-
-        <Button type="submit">Register</Button>
-      </form>
+      </div>
     </>
   );
 };

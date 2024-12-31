@@ -7,9 +7,6 @@ export const registerSchema = z.object({
     .string()
     .regex(/^[0-9]{10,15}$/, "Mobile number must be 10-15 digits"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  accessTo: z
-    .array(z.string())
-    .min(1, "At least one access permission required"),
 });
 
 export const AdminLoginSchema = z.object({
