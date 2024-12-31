@@ -7,7 +7,7 @@ import { z } from "zod";
 import { useDispatch } from "react-redux";
 
 const AdminLoginForm = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
