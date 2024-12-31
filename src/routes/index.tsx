@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import NotFound from "@/pages/not-found";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
+import AdminRegisterPage from "@/pages/auth/admin-register";
 
 // Lazy load components
 const AdminLoginPage = lazy(() => import("@/pages/auth/admin-login"));
@@ -41,6 +42,15 @@ export default function AppRouter() {
       element: (
         <Suspense fallback={<div>Loading Login...</div>}>
           <AdminLoginPage />
+        </Suspense>
+      ),
+      index: true,
+    },
+    {
+      path: "/admin-register",
+      element: (
+        <Suspense fallback={<div>Loading Login...</div>}>
+          <AdminRegisterPage />
         </Suspense>
       ),
       index: true,
