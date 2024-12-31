@@ -15,12 +15,15 @@ import axios from "axios";
 import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/slices/auth-slice";
+import { InputPassword } from "../shared/password-validation";
 
 const AdminLoginForm = () => {
   const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<z.infer<typeof AdminLoginSchema>>({
     resolver: zodResolver(AdminLoginSchema),
@@ -53,56 +56,55 @@ const AdminLoginForm = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="admin@boipoka.com"
-                    {...register("email")}
-                    required
-                  />
-                  {errors.email && (
-                    <p className="text-red-500">{errors.email.message}</p>
-                  )}
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                    <a
-                      href="#"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
-
-                  <Input
-                    id="password"
-                    type="password"
-                    {...register("password")}
-                    required
-                  />
-                  {errors.password && (
-                    <p className="text-red-500">{errors.password.message}</p>
-                  )}
-                </div>
-                <Button type="submit" className="w-full">
-                  Login
-                </Button>
-                <Button variant="outline" className="w-full">
-                  Login with Google
-                </Button>
+            <div className="flex flex-col gap-6">
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="admin@boipoka.com"
+                  {...register("email")}
+                  required
+                />
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
               </div>
-              <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
+              <div className="grid gap-2">
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+                  <a
+                    href="#"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Forgot your password?
+                  </a>
+                </div>
+{/* 
+                <Input
+                  id="password"
+                  type="password"
+                  {...register("password")}
+                  required
+                /> */}
+                <InputPassword
+                  value={watch("password") || ""}
+                  onChange={(e) => setValue("password", e.target.value)}
+                />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
-            </form>
+              <Button type="submit" className="w-full">
+                Login
+              </Button>
+            </div>
+            <div className="mt-4 text-center text-sm">
+              Don&apos;t have an account?{" "}
+              <a href="admin-register" className="underline underline-offset-4">
+                Register
+              </a>
+            </div>
           </CardContent>
         </Card>
       </div>
