@@ -11,11 +11,11 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AdminLoginSchema } from "@/schemas/auth/admin-schema";
-import axios from "axios";
 import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/slices/auth-slice";
 import { InputPassword } from "../shared/password-validation";
+import axiosInstance from "@/utils/axios-instance";
 
 const AdminLoginForm = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const AdminLoginForm = () => {
 
   const onSubmit = async (data: z.infer<typeof AdminLoginSchema>) => {
     try {
-      const response = await axios.post("/admin/login", data);
+      const response = await axiosInstance.post("/admin/login", data);
       console.log(response.data);
       const { token } = response.data;
 
@@ -80,7 +80,7 @@ const AdminLoginForm = () => {
                     Forgot your password?
                   </a>
                 </div>
-{/* 
+                {/* 
                 <Input
                   id="password"
                   type="password"
