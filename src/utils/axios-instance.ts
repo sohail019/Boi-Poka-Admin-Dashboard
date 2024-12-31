@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3333/api",
+  baseURL:
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://boi-poka-api.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
