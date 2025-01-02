@@ -44,7 +44,7 @@ const AdminRegisterForm: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-4 w-1/4">
+      <div className="space-y-4 ">
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
