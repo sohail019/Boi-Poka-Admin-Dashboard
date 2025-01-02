@@ -5,6 +5,7 @@ import axiosInstance from "@/utils/axios-instance";
 import { isAxiosError } from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import * as z from "zod";
 import { Label } from "@/components/ui/label";
 import { registerSchema, RegisterFormData } from "@/schemas/auth/admin-schema";
 import {
@@ -15,22 +16,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import PasswordWithValidation from "../shared/password-validation";
+import { useNavigate } from "react-router-dom";
 const AdminRegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
-
-  const onSubmit = async (data: RegisterFormData) => {
-    console.log(errors.password);
+  const navigateTo = useNavigate();
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     try {
-      const response = await axiosInstance.post("/admin/register", data);
-      alert(response.data.message);
+      await axiosInstance.post("/admin/register", data);
+      navigateTo("/admin-login");
     } catch (error: unknown) {
       if (isAxiosError(error)) {
         alert(error.response?.data?.error || "Registration failed");
