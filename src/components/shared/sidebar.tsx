@@ -6,6 +6,7 @@ import { navItems } from "@/constants/data";
 import DashboardNav from "./dashboard-nav";
 import { ModeToggle } from "./theme-toggle";
 import UserNav from "./user-nav";
+import LogoutButton from "./logout-button";
 
 type SidebarProps = {
   className?: string;
@@ -24,7 +25,7 @@ export default function Sidebar({ className }: SidebarProps) {
   return (
     <nav
       className={cn(
-        `relative z-10 bg-green-500 hidden h-screen flex-none px-3 md:block`,
+        `relative z-10  hidden h-screen flex-none px-3 md:block`,
         status && "duration-500 ",
         !isMinimized ? "w-72" : "w-[80px]",
         className
@@ -46,7 +47,7 @@ export default function Sidebar({ className }: SidebarProps) {
         />
       </div>
 
-      <div className="flex flex-col h-full bg-orange-500 overflow-y-auto">
+      <div className="flex flex-col h-full overflow-y-auto">
         <div className="flex-grow">
           <div className="px-2 ">
             <DashboardNav items={navItems} />
@@ -57,6 +58,7 @@ export default function Sidebar({ className }: SidebarProps) {
         <div className="mt-auto flex flex-col space-y-4  pb-24">
           <ModeToggle />
           <UserNav />
+          <LogoutButton />
         </div>
       </div>
     </nav>

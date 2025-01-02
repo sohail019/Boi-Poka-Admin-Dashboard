@@ -36,7 +36,7 @@ const AdminLoginForm = () => {
       console.log(response.data);
       const { token } = response.data;
 
-      dispatch(login(token));
+      dispatch(login({token, userType: "admin"}));
       console.log("Login successful");
 
       navigateTo("/dashboard");

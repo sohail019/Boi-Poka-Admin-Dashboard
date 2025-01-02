@@ -36,7 +36,7 @@ const SuperAdminLoginForm = () => {
       const { token } = response.data;
 
       // Store the token in localStorage
-      dispatch(login(token));
+      dispatch(login({token, userType: "superadmin"}));
       console.log("Login successful");
 
       window.location.href = "/dashboard";

@@ -10,18 +10,19 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logout } from "@/store/slices/auth-slice";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { logout } from "@/store/slices/auth-slice";
+// import { useDispatch } from "react-redux";
+// import { useNavigate } from "react-router-dom";
+import LogoutButton from "./logout-button";
 
 export default function UserNav() {
-  const dispatch = useDispatch();
-  const navigateTo = useNavigate();
-  const handleLogout = () => {
-      console.log("logout");
-      dispatch(logout());
-      navigateTo("/admin-login");
-    };
+  // const dispatch = useDispatch();
+  // const navigateTo = useNavigate();
+  // const handleLogout = () => {
+  //     console.log("logout");
+  //     dispatch(logout());
+  //     navigateTo("/admin-login");
+  //   };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -63,12 +64,8 @@ export default function UserNav() {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => {
-            handleLogout();
-          }}
-        >
-          Log out
+        <DropdownMenuItem>
+          <LogoutButton />
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
