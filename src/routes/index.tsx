@@ -6,12 +6,12 @@ import AdminRegisterPage from "@/pages/auth/admin-register";
 
 // Lazy load components
 const AdminLoginPage = lazy(() => import("@/pages/auth/admin-login"));
+const SuperAdminLoginPage = lazy(() => import("@/pages/auth/superadmin-login"));
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 // const StudentPage = lazy(() => import('@/pages/students'));
 // const StudentDetailPage = lazy(() => import('@/pages/students/StudentDetailPage'));
 
 export default function AppRouter() {
-  // Dashboard routes with lazy-loaded pages
   const dashboardRoutes = [
     {
       path: "/",
@@ -51,6 +51,15 @@ export default function AppRouter() {
       element: (
         <Suspense fallback={<div>Loading Login...</div>}>
           <AdminRegisterPage />
+        </Suspense>
+      ),
+      index: true,
+    },
+    {
+      path: "/superadmin-login",
+      element: (
+        <Suspense fallback={<div>Loading Login...</div>}>
+          <SuperAdminLoginPage />
         </Suspense>
       ),
       index: true,

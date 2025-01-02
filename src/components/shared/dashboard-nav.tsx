@@ -32,7 +32,9 @@ export default function DashboardNav({
   if (!items?.length) {
     return null;
   }
+
   console.log("isActive", isMobileNav, isMinimized);
+
 
   const handleLogout = () => {
     console.log("logout");
