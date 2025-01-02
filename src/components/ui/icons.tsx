@@ -14,6 +14,7 @@ import {
   Laptop,
   LayoutDashboardIcon,
   Loader2,
+  LogOut,
   LogIn,
   LucideIcon,
   LucideProps,
@@ -36,6 +37,8 @@ export type Icon = LucideIcon;
 export const Icons = {
   dashboard: LayoutDashboardIcon,
   logo: Command,
+  logout: LogOut,
+
   login: LogIn,
   close: X,
   profile: User2Icon,
