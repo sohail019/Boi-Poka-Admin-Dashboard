@@ -1,9 +1,11 @@
-import DashboardNav from "./dashboard-nav";
-import { navItems } from "@/constants/data";
-import { useSidebar } from "@/hooks/use-sidebar";
-import { cn } from "@/lib/utils";
-import { ChevronsLeft } from "lucide-react";
 import { useState } from "react";
+import { ChevronsLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useSidebar } from "@/hooks/use-sidebar";
+import { navItems } from "@/constants/data";
+import DashboardNav from "./dashboard-nav";
+import { ModeToggle } from "./theme-toggle";
+import UserNav from "./user-nav";
 
 type SidebarProps = {
   className?: string;
@@ -18,11 +20,12 @@ export default function Sidebar({ className }: SidebarProps) {
     toggle();
     setTimeout(() => setStatus(false), 500);
   };
+
   return (
     <nav
       className={cn(
-        `relative z-10 hidden h-screen flex-none  px-3 md:block`,
-        status && "duration-500",
+        `relative z-10 bg-green-500 hidden h-screen flex-none px-3 md:block`,
+        status && "duration-500 ",
         !isMinimized ? "w-72" : "w-[80px]",
         className
       )}
@@ -42,11 +45,18 @@ export default function Sidebar({ className }: SidebarProps) {
           onClick={handleToggle}
         />
       </div>
-      <div className="space-y-4 py-4">
-        <div className="px-2 py-2">
-          <div className="mt-3 space-y-1">
+
+      <div className="flex flex-col h-full bg-orange-500 overflow-y-auto">
+        <div className="flex-grow">
+          <div className="px-2 ">
             <DashboardNav items={navItems} />
           </div>
+        </div>
+
+        {/* Footer section: ModeToggle and UserNav */}
+        <div className="mt-auto flex flex-col space-y-4  pb-24">
+          <ModeToggle />
+          <UserNav />
         </div>
       </div>
     </nav>
