@@ -10,7 +10,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { usePathname } from "@/routes/hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "@/store/slices/auth-slice";
+import { useDispatch } from "react-redux";
 
 interface DashboardNavProps {
   items: NavItem[];
@@ -25,12 +27,18 @@ export default function DashboardNav({
 }: DashboardNavProps) {
   const path = usePathname();
   const { isMinimized } = useSidebar();
-
+  const navigateTo = useNavigate();
+  const dispatch = useDispatch();
   if (!items?.length) {
     return null;
   }
-
   console.log("isActive", isMobileNav, isMinimized);
+
+  const handleLogout = () => {
+    console.log("logout");
+    dispatch(logout());
+    navigateTo("/admin-login");
+  };
 
   return (
     <nav className="grid items-start gap-2">
@@ -75,6 +83,27 @@ export default function DashboardNav({
             )
           );
         })}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              className="flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:text-muted-foreground"
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              <Icons.logout className={`ml-2.5 size-5`} />
+              <span className="mr-2 truncate">Logout</span>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent
+            align="center"
+            side="right"
+            sideOffset={8}
+            className={!isMinimized ? "hidden" : "inline-block"}
+          >
+            Logout
+          </TooltipContent>
+        </Tooltip>
       </TooltipProvider>
     </nav>
   );
