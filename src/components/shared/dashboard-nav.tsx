@@ -32,7 +32,7 @@ export default function DashboardNav({
   console.log("isActive", isMobileNav, isMinimized);
 
   return (
-    <nav className="flex flex-col h-full gap-2">
+    <nav className="flex flex-col h-full gap-2  ">
       <TooltipProvider>
         {items.map((item, index) => {
           const Icon = Icons[item.icon || "arrowRight"];
