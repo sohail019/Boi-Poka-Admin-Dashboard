@@ -30,6 +30,7 @@ import {
   User2Icon,
   UserX2Icon,
   X,
+  Book,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -38,7 +39,7 @@ export const Icons = {
   dashboard: LayoutDashboardIcon,
   logo: Command,
   logout: LogOut,
-
+  book: Book,
   login: LogIn,
   close: X,
   profile: User2Icon,
