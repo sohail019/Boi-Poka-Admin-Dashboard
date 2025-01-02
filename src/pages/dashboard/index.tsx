@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import RecentSales from "../../components/dashboard/components/recent-sales";
 import Overview from "@/components/dashboard/components/overview";
 
@@ -136,6 +135,14 @@ export default function DashboardPage() {
             <CardContent>
               <RecentSales />
             </CardContent>
+          </Card>
+        </div>
+        <div className="w-full">
+          <Card className="w-full">
+            <CardHeader>
+              <CardTitle>Users</CardTitle>
+            </CardHeader>
+            <CardContent></CardContent>
           </Card>
         </div>
       </div>
