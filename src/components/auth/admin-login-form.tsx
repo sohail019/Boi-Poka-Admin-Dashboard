@@ -15,6 +15,7 @@ import { z } from "zod";
 import { useDispatch } from "react-redux";
 import { login } from "@/store/slices/auth-slice";
 import { InputPassword } from "../shared/password-validation";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "@/utils/axios-instance";
 
 const AdminLoginForm = () => {
@@ -28,18 +29,17 @@ const AdminLoginForm = () => {
   } = useForm<z.infer<typeof AdminLoginSchema>>({
     resolver: zodResolver(AdminLoginSchema),
   });
-
+  const navigateTo = useNavigate();
   const onSubmit = async (data: z.infer<typeof AdminLoginSchema>) => {
     try {
       const response = await axiosInstance.post("/admin/login", data);
       console.log(response.data);
       const { token } = response.data;
 
-      // Store the token in localStorage
       dispatch(login(token));
       console.log("Login successful");
 
-      window.location.href = "/dashboard";
+      navigateTo("/dashboard");
     } catch (error) {
       console.error("Login failed", error);
     }
