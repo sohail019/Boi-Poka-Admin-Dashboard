@@ -13,12 +13,6 @@ export const navItems: NavItem[] = [
     icon: "user",
     label: "Student",
   },
-  {
-    title: "Login",
-    href: "/admin-login",
-    icon: "login",
-    label: "Login",
-  },
 ];
 
 export const users = [
