@@ -8,8 +8,30 @@ import {
 import RecentSales from "../../components/dashboard/components/recent-sales";
 import Overview from "@/components/dashboard/components/overview";
 import PopularGenre from "@/components/dashboard/components/popular-genre";
+import { useSearchParams } from "react-router-dom";
+import { useGetStudents } from "../users/queries/queries";
+import { columns } from "@/components/users/users-feed-table/columns";
+import DataTable from "@/components/shared/data-table";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "@/routes/hooks";
+import RecentUserTable from "@/components/dashboard/components/recent-users-table";
 
 export default function DashboardPage() {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") || 1);
+  const pageLimit = Number(searchParams.get("limit") || 10);
+  const country = searchParams.get("search") || "";
+  const offset = (page - 1) * pageLimit;
+  const { data, isLoading } = useGetStudents({ offset, pageLimit, country });
+  const users = data?.users;
+  const totalUsers = data?.total_users; //1000
+  const pageCount = Math.ceil(totalUsers / pageLimit);
+
+  const router = useRouter();
+
+  if (isLoading) {
+    return <h1>Loading!!!</h1>;
+  }
   return (
     <>
       <div className="max-h-screen flex-1 space-y-4 overflow-y-auto p-4 pt-6 md:p-8">
@@ -154,6 +176,29 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <RecentSales />
+            </CardContent>
+          </Card>
+        </div>
+        <div className="w-full">
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <div className="flex flex-row justify-between items-center">
+                  <span>Recently Added Users</span>
+
+                  <Button
+                    onClick={() => {
+                      router.push("/users");
+                    }}
+                  >
+                    View All
+                  </Button>
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <RecentUserTable />
+              {/* <DataTable columns={columns} data={users} pageCount={pageCount} /> */}
             </CardContent>
           </Card>
         </div>

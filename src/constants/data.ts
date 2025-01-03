@@ -3,7 +3,7 @@ import { NavItem } from "@/types";
 export const navItems: NavItem[] = [
   {
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: "dashboard",
     label: "Dashboard",
   },
@@ -138,14 +138,14 @@ export type Employee = {
   email: string;
   phone: string;
   gender: string;
-  date_of_birth: string; 
+  date_of_birth: string;
   street: string;
   city: string;
   state: string;
   country: string;
   zipcode: string;
-  longitude?: number; 
+  longitude?: number;
   latitude?: number;
   job: string;
-  profile_picture?: string | null; 
+  profile_picture?: string | null;
 };
