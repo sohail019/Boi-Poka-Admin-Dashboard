@@ -1,7 +1,8 @@
+import StatsCardShimmer from '@/components/shimmers/stats-card';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { RootState } from '@/store';
 import axiosInstance from '@/utils/axios-instance';
-import { Book, BookA, CalendarRange, User, User2, Users } from 'lucide-react';
+import { Book, CalendarRange, User, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -35,7 +36,9 @@ useEffect(() => {
 }, [token]);
 
 if (!dashboardData) {
-  return <div>Loading...</div>;
+    return (
+      <StatsCardShimmer />
+  )
 }
 
 const {totalBooks, totalUsers, totalInnerCircles, booksAddedLastMonth} = dashboardData;
@@ -73,7 +76,7 @@ const {totalBooks, totalUsers, totalInnerCircles, booksAddedLastMonth} = dashboa
           <Users className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+{totalInnerCircles}</div>
+          <div className="text-2xl font-bold">{totalInnerCircles}</div>
           <p className="text-xs text-muted-foreground">+19% from last month</p>
         </CardContent>
       </Card>
@@ -85,7 +88,7 @@ const {totalBooks, totalUsers, totalInnerCircles, booksAddedLastMonth} = dashboa
           <CalendarRange className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">+{booksAddedLastMonth}</div>
+          <div className="text-2xl font-bold">{booksAddedLastMonth}</div>
           <p className="text-xs text-muted-foreground">+201 since last hour</p>
         </CardContent>
       </Card>
