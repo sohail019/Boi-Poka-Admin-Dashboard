@@ -38,7 +38,12 @@ export default function Sidebar({ className }: SidebarProps) {
           isMinimized ? "justify-center" : "justify-between"
         )}
       >
-        {!isMinimized && <h1 className="text-2xl font-bold">Logo</h1>}
+        {!isMinimized &&
+        <>
+<img src="/logo.png" alt="Logo" className="h-8 w-8" />
+<h1>Boi Poka</h1>
+        </> 
+}
         <ChevronsLeft
           className={cn(
             "size-8 cursor-pointer rounded-full border bg-background text-foreground",
@@ -48,7 +53,7 @@ export default function Sidebar({ className }: SidebarProps) {
         />
       </div>
 
-      <div className="flex flex-col h-full overflow-y-auto">
+      <div className="flex flex-col h-full overflow-y-auto bg-black">
         <div className="flex-grow">
           <div className="px-2">
             <DashboardNav items={navItems} activePath={location.pathname} />
