@@ -9,10 +9,7 @@ type TUsersTableProps = {
   pageCount: number;
 };
 
-export default function UsersTable({
-  users,
-  pageCount,
-}: TUsersTableProps) {
+export default function UsersTable({ users, pageCount }: TUsersTableProps) {
   return (
     <>
       <UserTableActions />

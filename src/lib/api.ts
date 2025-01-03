@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/utils/axios-instance";
 // ---------------------------- Student API ------------------------------------------------- //
 // export async function resendEmail(email: string) {
 //     try {
@@ -13,13 +13,18 @@ import axios from "axios";
 export async function getStudents(
   offset: number,
   pageLimit: number,
-  country: string
+  token: string
 ) {
   try {
-    const res = await axios.get(
-      `https://api.slingacademy.com/v1/sample-data/users?offset=${offset}&limit=${pageLimit}` +
-        (country ? `&search=${country}` : "")
+    const res = await axiosInstance.get(
+      `/admin/users?offset=${offset}&pageLimit=${pageLimit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
+    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);
