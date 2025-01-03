@@ -16,9 +16,11 @@ import { useDispatch } from "react-redux";
 import { login } from "@/store/slices/auth-slice";
 import { InputPassword } from "../shared/password-validation";
 import axiosInstance from "@/utils/axios-instance";
+import { useNavigate } from "react-router-dom";
 
 const SuperAdminLoginForm = () => {
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
   const {
     register,
     handleSubmit,
@@ -35,11 +37,9 @@ const SuperAdminLoginForm = () => {
       console.log(response.data);
       const { token } = response.data;
 
-      // Store the token in localStorage
       dispatch(login({token, userType: "superadmin"}));
       console.log("Login successful");
-
-      window.location.href = "/dashboard";
+        navigateTo("/dashboard");
     } catch (error) {
       console.error("Login failed", error);
     }
