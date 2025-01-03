@@ -24,6 +24,10 @@ export default function AppRouter() {
       ),
       children: [
         {
+          path: "",
+          element: <Navigate to="dashboard" replace />,
+        },
+        {
           path: "dashboard",
           element: (
             <Suspense fallback={<div>Loading Dashboard...</div>}>

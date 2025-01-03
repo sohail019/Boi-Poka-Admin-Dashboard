@@ -10,18 +10,20 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { usePathname } from "@/routes/hooks";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface DashboardNavProps {
   items: NavItem[];
   setOpen?: Dispatch<SetStateAction<boolean>>;
   isMobileNav?: boolean;
+  activePath: string;
 }
 
 export default function DashboardNav({
   items,
   setOpen,
   isMobileNav = false,
+  activePath,
 }: DashboardNavProps) {
   const path = usePathname();
   const { isMinimized } = useSidebar();
@@ -29,10 +31,8 @@ export default function DashboardNav({
     return null;
   }
 
-  console.log("isActive", isMobileNav, isMinimized);
-
   return (
-    <nav className="flex flex-col h-full gap-2  ">
+    <nav className="flex flex-col h-full gap-2">
       <TooltipProvider>
         {items.map((item, index) => {
           const Icon = Icons[item.icon || "arrowRight"];
@@ -40,12 +40,14 @@ export default function DashboardNav({
             item.href && (
               <Tooltip key={index}>
                 <TooltipTrigger asChild>
-                  <Link
+                  <NavLink
                     to={item.disabled ? "/" : item.href}
                     className={cn(
-                      "flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:text-muted-foreground",
-                      path === item.href
-                        ? "bg-white text-black hover:text-black"
+                      "flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:bg-muted hover:text-muted-foreground",
+                      activePath === item.href || (item.href === "/dashboard" && activePath === "/")
+                        ? "bg-primary text-primary-foreground"
+                        : path === item.href
+                        ? "bg-accent text-accent-foreground"
                         : "transparent",
                       item.disabled && "cursor-not-allowed opacity-80"
                     )}
@@ -60,7 +62,7 @@ export default function DashboardNav({
                     ) : (
                       ""
                     )}
-                  </Link>
+                  </NavLink>
                 </TooltipTrigger>
                 <TooltipContent
                   align="center"
