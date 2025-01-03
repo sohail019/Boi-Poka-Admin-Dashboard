@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import RecentSales from "../../components/dashboard/components/recent-sales";
 import Overview from "@/components/dashboard/components/overview";
+import PopularGenre from "@/components/dashboard/components/popular-genre";
 
 export default function DashboardPage() {
   return (
@@ -20,9 +21,7 @@ export default function DashboardPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Total Books in Master
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Total Books</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -45,9 +44,7 @@ export default function DashboardPage() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Subscriptions
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -72,7 +69,9 @@ export default function DashboardPage() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                No.of Inner Circle
+              </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -96,7 +95,9 @@ export default function DashboardPage() {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Active Users nhi
+              </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -121,15 +122,15 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card className="col-span-4">
             <CardHeader>
-              <CardTitle>Overview</CardTitle>
+              <CardTitle>Most Popular Genre</CardTitle>
             </CardHeader>
-            <CardContent className="pl-2">
-              <Overview />
+            <CardContent className="pl-2 ">
+              <PopularGenre />
             </CardContent>
           </Card>
           <Card className="col-span-4 md:col-span-3">
             <CardHeader>
-              <CardTitle>Recent Books</CardTitle>
+              <CardTitle>Top 5 Books</CardTitle>
               <CardDescription>You made 265 sales this month.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -137,12 +138,23 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
-        <div className="w-full">
-          <Card className="w-full">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
+          <Card className="col-span-4">
             <CardHeader>
-              <CardTitle>Users</CardTitle>
+              <CardTitle>Types of Books</CardTitle>
             </CardHeader>
-            <CardContent></CardContent>
+            <CardContent className="pl-2">
+              <Overview />
+            </CardContent>
+          </Card>
+          <Card className="col-span-4 md:col-span-3">
+            <CardHeader>
+              <CardTitle>Source Of Books</CardTitle>
+              <CardDescription>You made 265 sales this month.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <RecentSales />
+            </CardContent>
           </Card>
         </div>
       </div>

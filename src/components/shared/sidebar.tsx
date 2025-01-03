@@ -6,7 +6,7 @@ import { navItems } from "@/constants/data";
 import DashboardNav from "./dashboard-nav";
 import { ModeToggle } from "./theme-toggle";
 import UserNav from "./user-nav";
-import LogoutButton from "./logout-button";
+import { useLocation } from "react-router-dom";
 
 type SidebarProps = {
   className?: string;
@@ -15,6 +15,7 @@ type SidebarProps = {
 export default function Sidebar({ className }: SidebarProps) {
   const { isMinimized, toggle } = useSidebar();
   const [status, setStatus] = useState(false);
+  const location = useLocation();
 
   const handleToggle = () => {
     setStatus(true);
@@ -25,8 +26,8 @@ export default function Sidebar({ className }: SidebarProps) {
   return (
     <nav
       className={cn(
-        `relative z-10  hidden h-screen flex-none px-3 md:block`,
-        status && "duration-500 ",
+        `relative z-10 hidden h-screen flex-none px-3 md:block`,
+        status && "duration-500",
         !isMinimized ? "w-72" : "w-[80px]",
         className
       )}
@@ -34,7 +35,7 @@ export default function Sidebar({ className }: SidebarProps) {
       <div
         className={cn(
           "flex items-center px-0 py-5 md:px-2",
-          isMinimized ? "justify-center " : "justify-between"
+          isMinimized ? "justify-center" : "justify-between"
         )}
       >
         {!isMinimized && <h1 className="text-2xl font-bold">Logo</h1>}
@@ -49,16 +50,14 @@ export default function Sidebar({ className }: SidebarProps) {
 
       <div className="flex flex-col h-full overflow-y-auto">
         <div className="flex-grow">
-          <div className="px-2 ">
-            <DashboardNav items={navItems} />
+          <div className="px-2">
+            <DashboardNav items={navItems} activePath={location.pathname} />
           </div>
         </div>
 
-        {/* Footer section: ModeToggle and UserNav */}
-        <div className="mt-auto flex flex-col space-y-4  pb-24">
+        <div className="mt-auto flex flex-col pb-24">
           <ModeToggle />
           <UserNav />
-          <LogoutButton />
         </div>
       </div>
     </nav>
